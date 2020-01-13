@@ -6,6 +6,7 @@
 Useful utilities for working with bitarrays.
 """
 import sys
+import typing
 import heapq
 import binascii
 
@@ -28,7 +29,7 @@ _set_babt(_bitarray)
 _is_py2 = bool(sys.version_info[0] == 2)
 
 
-def zeros(length, endian='big'):
+def zeros(length : int, endian : str='big') -> bitarray:
     """zeros(length, /, endian='big') -> bitarray
 
 Create a bitarray of length, with all values 0.
@@ -41,7 +42,7 @@ Create a bitarray of length, with all values 0.
     return a
 
 
-def strip(a, mode='right'):
+def strip(a : bitarray, mode:str='right') -> bitarray:
     """strip(bitarray, mode='right', /) -> bitarray
 
 Strip zeros from left, right or both ends.
@@ -71,7 +72,7 @@ Allowed values for mode are the strings: `left`, `right`, `both`
     return a[first:last + 1]
 
 
-def ba2hex(a):
+def ba2hex(a : bitarray) -> bytes:
     """ba2hex(bitarray, /) -> hexstr
 
 Return a bytes object containing with hexadecimal representation of
@@ -95,7 +96,7 @@ the bitarray (which has to be multiple of 4 in length).
     return s
 
 
-def hex2ba(s):
+def hex2ba(s:str) -> bitarray:
     """hex2ba(hexstr, /) -> bitarray
 
 Bitarray of hexadecimal representation.
@@ -116,7 +117,7 @@ hexstr may contain any number of hex digits (upper or lower case).
     return a
 
 
-def ba2int(a):
+def ba2int(a:bitarray) -> int:
     """ba2int(bitarray, /) -> int
 
 Convert the given bitarray into an integer.
@@ -150,7 +151,7 @@ The bit-endianness of the bitarray is respected.
         return int.from_bytes(b, byteorder=endian)
 
 
-def int2ba(i, length=None, endian='big'):
+def int2ba(i:int, length:typing.Optional[int]=None, endian:str='big') -> bitarray:
     """int2ba(int, /, length=None, endian='big') -> bitarray
 
 Convert the given integer into a bitarray (with given endianness,
@@ -215,7 +216,7 @@ within length bits.
     return a
 
 
-def huffman_code(freq_map, endian='big'):
+def huffman_code(freq_map:dict, endian:str='big') -> dict:
     """huffman_code(dict, /, endian='big') -> dict
 
 Given a frequency map, a dictionary mapping symbols to thier frequency,
